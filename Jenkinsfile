@@ -1,18 +1,22 @@
 pipeline {
-  agent {
-    docker {
-      image 'maven:3.9.9-eclipse-temurin-24'
-      args '-v $HOME/.m2:/root/.m2'
-    }
+  agent any
+  tools {
+    jdk 'JDK 24'
+    maven 'Maven 3.9.9'
   }
   options { timestamps() }
   stages {
-    stage('Checkout') { steps { checkout scm } }
-    stage('Build and Test with JDK 24') {
+    stage('Checkout') {
+      steps { checkout scm }
+    }
+    stage('Build and Test (Java 24)') {
       steps {
-        sh 'java -version'
-        sh 'mvn -v'
-        sh 'mvn -B clean test'
+        sh '''
+          echo "Using Java 24 and Maven"
+          java -version
+          mvn -v
+          mvn -B clean test
+        '''
       }
     }
   }
