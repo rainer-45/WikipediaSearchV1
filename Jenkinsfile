@@ -29,7 +29,7 @@ pipeline {
           export CHROME_BIN="$(command -v google-chrome)"
 
           # Run tests under a virtual display
-          xvfb-run -a mvn -B clean test
+          xvfb-run -a bash -lc 'UD="$(mktemp -d)" && echo "Using user-data-dir=$UD" && CHROME_BIN=$(command -v google-chrome) mvn -B -DargLine="--user-data-dir=$UD" clean test'
         '''
       }
     }
