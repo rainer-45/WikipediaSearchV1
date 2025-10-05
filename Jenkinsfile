@@ -1,7 +1,7 @@
 pipeline {
   agent any
   tools {
-    jdk 'JDK 24'
+    jdk 'JDK 24'        // you already added this in Tools with /opt/jdk/jdk24
     maven 'Maven 3.9.9'
   }
   options { timestamps() }
@@ -9,13 +9,14 @@ pipeline {
     stage('Checkout') {
       steps { checkout scm }
     }
-    stage('Build and Test (Java 24)') {
+    stage('Build and Test, headless Chrome') {
       steps {
         sh '''
-          echo "Using Java 24 and Maven"
           java -version
+          google-chrome --version || true
           mvn -v
-          mvn -B clean test
+          # Run tests under a virtual display, no code changes needed
+          xvfb-run -a mvn -B clean test
         '''
       }
     }
