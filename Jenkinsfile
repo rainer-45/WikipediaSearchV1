@@ -1,25 +1,25 @@
 pipeline {
-  agent any
-  tools {
-    maven 'Maven 3.9.9'
-  }
-  stages {
-    stage('Checkout') {
-      steps {
-        checkout scm
-      }
+  agent {
+    docker {
+      image 'maven:3.9.9-eclipse-temurin-24'
+      args '-v $HOME/.m2:/root/.m2'
     }
-    stage('Build and Test') {
+  }
+  options { timestamps() }
+  stages {
+    stage('Checkout') { steps { checkout scm } }
+    stage('Build and Test with JDK 24') {
       steps {
-        sh 'mvn -B test'
+        sh 'java -version'
+        sh 'mvn -v'
+        sh 'mvn -B clean test'
       }
     }
   }
   post {
     always {
-      // Publish the TestNG/Surefire results
-      junit 'target/surefire-reports/*.xml'
-      archiveArtifacts artifacts: 'target/**/*', onlyIfSuccessful: false
+      junit '**/target/surefire-reports/*.xml'
+      archiveArtifacts artifacts: '**/target/**/*', onlyIfSuccessful: false
     }
   }
 }
