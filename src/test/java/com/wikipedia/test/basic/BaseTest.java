@@ -1,6 +1,7 @@
 package com.wikipedia.test.basic;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
@@ -13,7 +14,6 @@ public abstract class BaseTest {
     @BeforeMethod
     public void setUp() {
         driver = DriverFactory.create();
-        driver.manage().window().maximize();
         waits = new Waits(driver, 1000);
     }
 
