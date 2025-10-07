@@ -10,9 +10,10 @@ pipeline {
 
     stage('Build and Test, headless Chrome') {
       steps {
-        sh '''
-          # Run tests under virtual display, keep Jenkins Maven tool PATH intact
-          xvfb-run -a mvn -B clean test
+        powershell '''
+          $ErrorActionPreference = "Stop"
+          mvn -v
+          mvn -B -ntp clean test
         '''
       }
     }
