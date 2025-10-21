@@ -2,7 +2,7 @@ pipeline {
   agent any
   tools {
     jdk 'JDK 24'          // Manage Jenkins -> Tools -> JDK 24 -> /opt/jdk/jdk24
-    maven 'Maven 3.9.9'   // Name must match your Maven tool exactly
+    maven 'Maven 3.9.9'   // Name must match your Maven tool exactly 1234
   }
   options { timestamps() }
   stages {
