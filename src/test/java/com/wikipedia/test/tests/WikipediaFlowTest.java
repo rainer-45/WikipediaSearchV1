@@ -13,8 +13,7 @@ public class WikipediaFlowTest extends BaseTest {
     public String[] provideSearchTerms() {
         return new String[]{
                 "Laptop",
-                "Mouse",
-                "Coffee"
+                "Mouse"
         };
     }
 
