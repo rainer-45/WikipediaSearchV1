@@ -14,6 +14,7 @@ public class WikipediaFlowTest extends BaseTest {
         return new String[]{
                 "Laptop",
                 "Mouse",
+                "Coffee"
         };
     }
 
